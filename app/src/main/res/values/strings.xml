@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name">City Name:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="temperature_max">Temperature Max: </string>
+    <string name="temperature_min">Temperature Min:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="enter_city_name">Enter City name!</string>
+    <string name="current_location_prompt">Getting current location weather</string>
+</resources>
