@@ -16,6 +16,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
 
+// TODO add dependecny injection using koin and inject service and viewmodel
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private val viewModel: MainViewModel by viewModels()
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     // sends user entered city to service to service to retrieve weather
+    // TODO handle empty city name
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let { viewModel.getCityData(it) }
         return false
