@@ -1,10 +1,9 @@
 package com.example.weather
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.models.WeatherResponse
 import com.example.weather.network.WeatherService
@@ -14,9 +13,8 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(private val weatherService: WeatherService) : ViewModel() {
     // TODO  given more time I would prefer to add a repository and move api calls to repository
-    private val api by lazy { WeatherService().api }
 
     private val _weatherDetails = MutableLiveData<WeatherResponse>()
     val weatherDetails: LiveData<WeatherResponse> get() = _weatherDetails
@@ -28,7 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val temp = cityName.lowercase().trim()
                 // uses only city name to get weather details
-                handleWeatherResponse(api.getCityWeatherCityName(temp))
+                handleWeatherResponse(weatherService.api.getCityWeatherCityName(temp))
             } catch (e: Exception) {
                 // logs exception, if any
                 logError(e.message ?: e.toString())
@@ -39,7 +37,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getCityDataByCoordinates(lat: Double, lon: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                handleWeatherResponse(api.getCityByCoordinatesWeather(lat, lon))
+                handleWeatherResponse(weatherService.api.getCityByCoordinatesWeather(lat, lon))
             } catch (e: Exception) {
                 // logs exception, if any
                 logError(e.message ?: e.toString())

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -15,10 +14,11 @@ import com.example.weather.models.WeatherResponse
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by inject()
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
