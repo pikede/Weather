@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -15,11 +14,11 @@ import com.example.weather.models.WeatherResponse
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 
-// TODO add dependecny injection using koin and inject service and viewmodel
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by inject()
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     // sends user entered city to service to service to retrieve weather
-    // TODO handle empty city name
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let { viewModel.getCityData(it) }
         return false
